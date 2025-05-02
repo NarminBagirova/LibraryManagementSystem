@@ -7,43 +7,208 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LibraryManagementSystem.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LibraryManagementSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - LibraryManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+</head>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Home" asp-action="Index">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Components -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>List of books</span>
+                </a>
+                <div id="collapseTwo" class="collapse" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" asp-controller="Books" asp-action="Index">Full List</a>
+                        <a class="collapse-item" asp-controller="Books" asp-action="Create">Create</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities" aria-expanded="false">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Author operation</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" asp-controller="Authors" asp-action="Create">Create</a>
+                        <a class="collapse-item" asp-controller="Authors" asp-action="Index">List of Authors</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Addons
+            </div>
+
+            <!-- Nav Item - Pages -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Category</span>
+                </a>
+                <div id="collapsePages" class="collapse" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" asp-controller="BookCategories" asp-action="Index">List of Categories</a>
+                        <a class="collapse-item" asp-controller="BookCategories" asp-action="Create">Create</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Publisher</span>
+                </a>
+                <div id="collapsePages" class="collapse" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" asp-controller="Publishers" asp-action="Index">List of Publishers</a>
+                        <a class="collapse-item" asp-controller="Publishers" asp-action="Create">Create</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="~/tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <div class="sidebar-card d-none d-lg-flex">
+                <img class="sidebar-card-illustration mb-2" src="~/img/undraw_rocket.svg" alt="...">
+                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
+                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for...">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Alerts, Messages, User dropdown, etc. Buraya əlavə edə bilərik. -->
+                    </ul>
+
+                </nav>
+
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2025</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-    </footer>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="~/https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

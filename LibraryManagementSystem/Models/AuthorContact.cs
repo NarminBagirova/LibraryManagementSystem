@@ -1,6 +1,6 @@
 ﻿namespace LibraryManagementSystem.Models
 {
-    public class AuthorContact
+    public class AuthorContact:BaseEntity
     {
         public string Email { get; set; }
         public string Phone { get; set; }
