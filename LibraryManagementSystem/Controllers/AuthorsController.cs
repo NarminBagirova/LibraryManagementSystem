@@ -189,7 +189,7 @@ namespace LibraryManagementSystem.Controllers
             if (author == null) return NotFound();
 
             if (author.AuthorContact != null)
-                _context.AuthorsContacts.Remove(author.AuthorContact);
+                _context.AuthorContacts.Remove(author.AuthorContact);
 
             _context.Authors.Remove(author);
             await _context.SaveChangesAsync();

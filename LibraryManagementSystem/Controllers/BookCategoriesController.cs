@@ -69,8 +69,8 @@ namespace LibraryManagementSystem.Controllers
                 var category = new BookCategory
                 {
                     Name = model.Name,
-                    CreatedDate = DateTime.UtcNow.AddHours(4),
-                    UpdatedDate = DateTime.UtcNow.AddHours(4)
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow
                 };
 
                 _context.BookCategories.Add(category);
@@ -113,7 +113,7 @@ namespace LibraryManagementSystem.Controllers
                 if (category == null) return NotFound();
 
                 category.Name = model.Name;
-                category.UpdatedDate = DateTime.UtcNow.AddHours(4);
+                category.UpdatedDate = DateTime.UtcNow;
 
                 _context.Update(category);
                 await _context.SaveChangesAsync();
