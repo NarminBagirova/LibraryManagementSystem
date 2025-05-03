@@ -30,7 +30,7 @@ namespace LibraryManagementSystem.Controllers
                     Name = a.Name,
                     Surname = a.Surname,
                     Email = a.AuthorContact != null ? a.AuthorContact.Email : null,
-                    PhoneNumber = a.AuthorContact != null ? a.AuthorContact.PhoneNumber : null
+                    Phone = a.AuthorContact != null ? a.AuthorContact.Phone : null
                 })
                 .ToListAsync();
 
@@ -53,7 +53,7 @@ namespace LibraryManagementSystem.Controllers
                 Name = author.Name,
                 Surname = author.Surname,
                 Email = author.AuthorContact?.Email,
-                PhoneNumber = author.AuthorContact?.PhoneNumber
+                Phone = author.AuthorContact?.Phone
             };
 
             return View(vm);
@@ -80,7 +80,7 @@ namespace LibraryManagementSystem.Controllers
                 AuthorContact = new AuthorContact
                 {
                     Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
+                    Phone = model.Phone,
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow
                 }
@@ -109,7 +109,7 @@ namespace LibraryManagementSystem.Controllers
                 Name = author.Name,
                 Surname = author.Surname,
                 Email = author.AuthorContact?.Email,
-                PhoneNumber = author.AuthorContact?.PhoneNumber
+                Phone = author.AuthorContact?.Phone
             };
 
             return View(vm);
@@ -137,7 +137,7 @@ namespace LibraryManagementSystem.Controllers
                 author.AuthorContact = new AuthorContact
                 {
                     Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
+                    Phone = model.Phone,
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow
                 };
@@ -145,7 +145,7 @@ namespace LibraryManagementSystem.Controllers
             else
             {
                 author.AuthorContact.Email = model.Email;
-                author.AuthorContact.PhoneNumber = model.PhoneNumber;
+                author.AuthorContact.Phone = model.Phone;
                 author.AuthorContact.UpdatedDate = DateTime.UtcNow;
             }
 
@@ -172,7 +172,7 @@ namespace LibraryManagementSystem.Controllers
                 Name = author.Name,
                 Surname = author.Surname,
                 Email = author.AuthorContact?.Email,
-                PhoneNumber = author.AuthorContact?.PhoneNumber
+                Phone = author.AuthorContact?.Phone
             };
 
             return View(vm);
@@ -189,7 +189,7 @@ namespace LibraryManagementSystem.Controllers
             if (author == null) return NotFound();
 
             if (author.AuthorContact != null)
-                _context.AuthorContacts.Remove(author.AuthorContact);
+                _context.AuthorsContacts.Remove(author.AuthorContact);
 
             _context.Authors.Remove(author);
             await _context.SaveChangesAsync();

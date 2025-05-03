@@ -20,7 +20,7 @@ namespace LibraryManagementSystem.ViewModels
 
         [Phone(ErrorMessage = "Invalid Phone Number")]
         [StringLength(20)]
-        public string? PhoneNumber { get; set; }
+        public string? Phone { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

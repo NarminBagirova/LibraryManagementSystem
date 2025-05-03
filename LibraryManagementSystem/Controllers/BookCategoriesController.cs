@@ -20,168 +20,144 @@ namespace LibraryManagementSystem.Controllers
             _context = context;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var categories = await _context.BookCategories
-        .Select(x => new BookCategoryViewModel
-        {
-            Id = x.Id,
-            Name = x.Name,
-            CreatedDate = x.CreatedDate,
-            UpdatedDate = x.UpdatedDate,
-        })
-        .ToListAsync();
+                .Select(x => new BookCategoryViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedDate = x.UpdatedDate,
+                })
+                .ToListAsync();
 
             return View(categories);
         }
 
-
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var bookCategory = await _context.BookCategories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (bookCategory == null)
-            {
-                return NotFound();
-            }
+            var category = await _context.BookCategories
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            return View(bookCategory);
+            if (category == null) return NotFound();
+
+            var vm = new BookCategoryViewModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+                CreatedDate = category.CreatedDate,
+                UpdatedDate = category.UpdatedDate
+            };
+
+            return View(vm);
         }
-
 
         public IActionResult Create()
         {
-            return View();
+            return View(new BookCategoryViewModel());
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id,CreatedDate,UpdatedDate")] BookCategoryViewModel model)
+        public async Task<IActionResult> Create(BookCategoryViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var bookCategory = new BookCategory
+                var category = new BookCategory
                 {
                     Name = model.Name,
                     CreatedDate = DateTime.UtcNow.AddHours(4),
                     UpdatedDate = DateTime.UtcNow.AddHours(4)
                 };
 
-                _context.BookCategories.Add(bookCategory);
+                _context.BookCategories.Add(category);
                 await _context.SaveChangesAsync();
+
                 TempData["SuccessMessage"] = "Category created successfully!";
                 return RedirectToAction(nameof(Index));
             }
+
             return View(model);
         }
-
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var bookCategory = await _context.BookCategories.FindAsync(id);
-            if (bookCategory == null)
-            {
-                return NotFound();
-            }
+            var category = await _context.BookCategories.FindAsync(id);
+            if (category == null) return NotFound();
 
-            var viewModel = new BookCategoryViewModel
+            var vm = new BookCategoryViewModel
             {
-                Id = bookCategory.Id,
-                Name = bookCategory.Name,
-                CreatedDate = bookCategory.CreatedDate,
-                UpdatedDate = bookCategory.UpdatedDate
+                Id = category.Id,
+                Name = category.Name,
+                CreatedDate = category.CreatedDate,
+                UpdatedDate = category.UpdatedDate
             };
 
-            return View(viewModel);
+            return View(vm);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Id,CreatedDate,UpdatedDate")] BookCategoryViewModel model)
+        public async Task<IActionResult> Edit(int id, BookCategoryViewModel model)
         {
-            if (id != model.Id)
-            {
-                return NotFound();
-            }
+            if (id != model.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var bookCategory = await _context.BookCategories.FindAsync(id);
-                    if (bookCategory == null)
-                    {
-                        return NotFound();
-                    }
+                var category = await _context.BookCategories.FindAsync(id);
+                if (category == null) return NotFound();
 
-                    bookCategory.Name = model.Name;
-                    bookCategory.UpdatedDate = DateTime.UtcNow.AddHours(4);
+                category.Name = model.Name;
+                category.UpdatedDate = DateTime.UtcNow.AddHours(4);
 
-                    _context.Update(bookCategory);
+                _context.Update(category);
+                await _context.SaveChangesAsync();
 
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookCategoryExists(model.Id.Value))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 TempData["SuccessMessage"] = "Category updated successfully!";
                 return RedirectToAction(nameof(Index));
             }
+
             return View(model);
         }
 
-
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var bookCategory = await _context.BookCategories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (bookCategory == null)
-            {
-                return NotFound();
-            }
+            var category = await _context.BookCategories
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            return View(bookCategory);
+            if (category == null) return NotFound();
+
+            var vm = new BookCategoryViewModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+                CreatedDate = category.CreatedDate,
+                UpdatedDate = category.UpdatedDate
+            };
+
+            return View(vm);
         }
-
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bookCategory = await _context.BookCategories.FindAsync(id);
-            if (bookCategory != null)
+            var category = await _context.BookCategories.FindAsync(id);
+            if (category != null)
             {
-                _context.BookCategories.Remove(bookCategory);
+                _context.BookCategories.Remove(category);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Category deleted successfully!";
             }
 
-            await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = "Category deleted successfully!";
             return RedirectToAction(nameof(Index));
         }
 
